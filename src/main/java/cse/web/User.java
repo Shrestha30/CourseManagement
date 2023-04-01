@@ -8,6 +8,11 @@ public class User {
 	protected int id;
 	protected String username;
 	protected String password;
+	/*
+	 * Type: "0" indicates student account
+	 * Type: "1" indicates teacher account
+	 * Type: "2" indicates admin account
+	 * */
 	protected String type;
 	
 	public User(int id, String username, String password, String type) {
