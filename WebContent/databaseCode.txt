@@ -1,7 +1,17 @@
+create database courseManagement;
+
 create table users (
  id  int NOT NULL AUTO_INCREMENT,
  username varchar(120) NOT NULL,
  password varchar(220) NOT NULL,
  type varchar(1) NOT NULL,
  PRIMARY KEY (id)
+);
+
+
+create table courses (
+ code varchar(120) NOT NULL,
+ title varchar(220) NOT NULL,
+ teacherid int,
+ PRIMARY KEY (code)
 );

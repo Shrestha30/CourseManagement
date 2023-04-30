@@ -23,6 +23,7 @@ public class DBControlModule {
     private static final String SELECT_ALL_COURSES = "select * from courses";
     private static final String UPDATE_COURSE_TEACHER = "update courses set teacherid=? where code=?";
     private static final String CREATE_COURSE = "insert into courses (code,title,teacherid) values (?,?,?)";
+    private static final String SELECT_ALL_TEACHERS = "select * from teachers";
 	
 	public static Connection getDbConnection() {
 		//create an new instance of connection
@@ -139,6 +140,31 @@ public class DBControlModule {
         	e.printStackTrace();
         }
         return dbUpdated;
+    }
+	
+	public static List < Teacher > getAllTeachers() {
+
+        // using try-with-resources to avoid closing resources (boiler plate code)
+        List < Teacher > teachers = new ArrayList < > ();
+        // Step 1: Establishing a Connection
+        try (Connection connection = getDbConnection();
+
+            // Step 2:Create a statement using connection object
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_TEACHERS);) {
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                String name = rs.getString("name");
+                int id = rs.getInt("id");
+                teachers.add(new Teacher(id, name));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return teachers;
     }
 
 }

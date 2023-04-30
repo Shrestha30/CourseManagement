@@ -19,4 +19,13 @@
 	<url-pattern>/CreateCourse</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+	<servlet-name>AssignCourseTeacher</servlet-name>
+	<servlet-class>cse.web.AsssignCourseTeacher</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>AssignCourseTeacher</servlet-name>
+	<url-pattern>/AssignCourseTeacher</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
