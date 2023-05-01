@@ -15,3 +15,16 @@ create table courses (
  teacherid int,
  PRIMARY KEY (code)
 );
+
+create table teachers (
+ id  int NOT NULL AUTO_INCREMENT,
+ name varchar(120) NOT NULL,
+ PRIMARY KEY (id)
+);
+
+create table registrations (
+ id  int NOT NULL AUTO_INCREMENT,
+ coursecode varchar(120) NOT NULL,
+ studentid int NOT NULL,
+ PRIMARY KEY (id)
+);

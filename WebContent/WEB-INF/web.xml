@@ -28,4 +28,13 @@
 	<url-pattern>/AssignCourseTeacher</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+	<servlet-name>RegisterCourse</servlet-name>
+	<servlet-class>cse.web.RegisterCourse</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>RegisterCourse</servlet-name>
+	<url-pattern>/RegisterCourse</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
