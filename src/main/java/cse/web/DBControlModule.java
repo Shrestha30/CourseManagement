@@ -23,7 +23,16 @@ public class DBControlModule {
     private static final String SELECT_ALL_COURSES = "select * from courses";
     private static final String UPDATE_COURSE_TEACHER = "update courses set teacherid=? where code=?";
     private static final String CREATE_COURSE = "insert into courses (code,title,teacherid) values (?,?,?)";
-    private static final String SELECT_ALL_TEACHERS = "select * from teachers";
+    private static final String SELECT_ALL_TEACHERS = "select * from users where type =?";
+    private static final String CREATE_REGISTRATION = "insert into registrations (coursecode,studentid) values (?,?)";
+    private static final String SELECT_REGISTERED_COURSES = "select * from users where studentid =?";
+    private static final String NON_REGISTERED_COURSES_STUDENT = "SELECT * FROM courses WHERE code IN ("+
+    			"SELECT coursecode FROM registrations WHERE studentid <> ?"+
+    		")";
+    private static final String REGISTERED_COURSES_STUDENT = "SELECT * FROM courses WHERE code IN ("+
+			"SELECT coursecode FROM registrations WHERE studentid = ?"+
+		")";
+
 	
 	public static Connection getDbConnection() {
 		//create an new instance of connection
@@ -151,13 +160,14 @@ public class DBControlModule {
 
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_TEACHERS);) {
-            System.out.println(preparedStatement);
+            preparedStatement.setString(1,"3");
+        	System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
 
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
-                String name = rs.getString("name");
+                String name = rs.getString("username");
                 int id = rs.getInt("id");
                 teachers.add(new Teacher(id, name));
             }
@@ -165,6 +175,75 @@ public class DBControlModule {
             e.printStackTrace();
         }
         return teachers;
+    }
+	
+	public static List < Course > getRegisteredCourses(int studentid) {
+
+        // using try-with-resources to avoid closing resources (boiler plate code)
+        List < Course > courses = new ArrayList < > ();
+        // Step 1: Establishing a Connection
+        try (Connection connection = getDbConnection();
+
+            // Step 2:Create a statement using connection object
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_REGISTERED_COURSES);) {
+        	preparedStatement.setInt(1,studentid);
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                String code = rs.getString("code");
+                String title = rs.getString("title");
+                int teacherid = rs.getInt("teacherid");
+                courses.add(new Course(code, title, teacherid));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return courses;
+    }
+	
+	public static List < Course > getNonRegisteredCourses(int studentid) {
+
+        // using try-with-resources to avoid closing resources (boiler plate code)
+        List < Course > courses = new ArrayList < > ();
+        // Step 1: Establishing a Connection
+        try (Connection connection = getDbConnection();
+
+            // Step 2:Create a statement using connection object
+            PreparedStatement preparedStatement = connection.prepareStatement(NON_REGISTERED_COURSES_STUDENT);) {
+        	preparedStatement.setInt(1,studentid);
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                String code = rs.getString("code");
+                String title = rs.getString("title");
+                int teacherid = rs.getInt("teacherid");
+                courses.add(new Course(code, title, teacherid));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return courses;
+    }
+	
+	public static boolean createCourseRegistration(String coursecode, int studentid) {
+		boolean dbUpdated=false;
+        // try-with-resource statement will auto close the connection.
+        try (Connection connection = getDbConnection(); PreparedStatement preparedStatement = connection.prepareStatement(CREATE_REGISTRATION)) {
+            preparedStatement.setString(1, coursecode);
+            preparedStatement.setInt(2, studentid);
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+            dbUpdated=true;
+        }catch (SQLException e) {
+        	e.printStackTrace();
+        }
+        return dbUpdated;
     }
 
 }
