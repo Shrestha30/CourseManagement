@@ -1,15 +1,16 @@
 package cse.web;
 
-public class Teacher {
-	/*Class to handle teachers from and to database
+public class Student {
+	/*Class to handle students from and to database
 	 * */
 	protected int id;
-	protected String name;
+	protected String name,reg;
 	
-	public Teacher(int id, String name) {
+	public Student(int id, String name, String reg) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.reg = reg;
 	}
 
 	public int getId() {
@@ -27,5 +28,12 @@ public class Teacher {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public String getReg() {
+		return reg;
+	}
+
+	public void setReg(String reg) {
+		this.reg = reg;
+	}
 }

@@ -28,3 +28,10 @@ create table registrations (
  studentid int NOT NULL,
  PRIMARY KEY (id)
 );
+
+create table students (
+ id  int NOT NULL AUTO_INCREMENT,
+ name varchar(120) NOT NULL,
+ reg varchar(120) NOT NULL,
+ PRIMARY KEY (id)
+);

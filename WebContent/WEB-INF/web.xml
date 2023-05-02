@@ -37,4 +37,13 @@
 	<url-pattern>/RegisterCourse</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+	<servlet-name>RegisteredStudents</servlet-name>
+	<servlet-class>cse.web.RegisteredStudents</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>RegisteredStudents</servlet-name>
+	<url-pattern>/RegisteredStudents</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
