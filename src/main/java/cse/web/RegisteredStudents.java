@@ -43,8 +43,14 @@ public class RegisteredStudents extends HttpServlet {
 		    request.setAttribute("listAssignedCourses", listAssignedCourses);
 		    
 		    //By default gives the data of first course registered students to front end
+//		    	String firstCourseCode = DBControlModule.getFirstAssignedCourseCode(teacherid);
+//	            //sending all assigned courses data to front-end registerCourse.jsp
+//				List < Student > listRegisteredStudents = DBControlModule.getRegisteredStudents(firstCourseCode);
+//			    request.setAttribute("listRegisteredStudents", listRegisteredStudents);
+		    
+		    
 		    if (listAssignedCourses != null && !listAssignedCourses.isEmpty()) {
-		        Course firstCourse = listAssignedCourses.get(0);
+		        Course firstCourse = listAssignedCourses.get(1);
 		        if (firstCourse != null) {
 		            String firstCourseCode = firstCourse.getCode();
 		            //sending all assigned courses data to front-end registerCourse.jsp
@@ -52,6 +58,9 @@ public class RegisteredStudents extends HttpServlet {
 				    request.setAttribute("listRegisteredStudents", listRegisteredStudents);
 		        }
 		    }
+		    
+		    request.setAttribute("scode", "");
+		    request.setAttribute("stitle", "");
 
 				      
 			RequestDispatcher dispatcher = request.getRequestDispatcher("registeredStudents.jsp");
@@ -74,6 +83,7 @@ public class RegisteredStudents extends HttpServlet {
 		if(type.compareTo("2")==0) {
 			//fetching the data and creating course
 			String code = request.getParameter("code");
+			String title = request.getParameter("title");
 			int teacherid = (int)session.getAttribute("id");
 			
 			//redirecting to the current page with updated data
@@ -85,7 +95,10 @@ public class RegisteredStudents extends HttpServlet {
 		    //sending all assigned courses data to front-end registerCourse.jsp
 			List < Student > listRegisteredStudents = DBControlModule.getRegisteredStudents(code);
 		    request.setAttribute("listRegisteredStudents", listRegisteredStudents);
-			      
+			
+		    request.setAttribute("scode", code);
+		    request.setAttribute("stitle", title);
+		    
 		    RequestDispatcher dispatcher = request.getRequestDispatcher("registeredStudents.jsp");
 			dispatcher.forward(request, response);
 		}else {

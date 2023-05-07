@@ -8,8 +8,7 @@ create table users (
  PRIMARY KEY (id)
 );
 
-
-reate table courses (
+create table courses (
  code varchar(120) NOT NULL,
  title varchar(220) NOT NULL,
  teacherid int,
@@ -37,11 +36,18 @@ create table students (
  PRIMARY KEY (id)
 );
 
+drop table courses;
 INSERT INTO courses (code, title, teacherid, credit) VALUES ('CSCI101', 'Introduction to Computer Science', -1, 3.5);
 INSERT INTO courses (code, title, teacherid, credit) VALUES ('CSe157', 'Computer Science', -1, 3.5);
 
+insert into users (username,password,type) values ("admin","admin","3");
 insert into users (username,password,type) values ("student","student","1");
 insert into users (username,password,type) values ("student1","student1","1");
 insert into users (username,password,type) values ("teacher","teacher","2");
-insert into users (username,password,type) values ("teacher","teacher","2");
-insert into users (username,password,type) values ("student","student","1");
+insert into users (username,password,type) values ("teacher1","teacher1","2");
+
+insert into teachers (id,name) values(5,"MD X");
+insert into teachers (id,name) values(8,"MD Y");
+
+insert into students (id,name,reg) values(3,"John Smith","2018331133");
+insert into students (id,name,reg) values(4,"John Watson","2018331144");

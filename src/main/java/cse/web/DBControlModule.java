@@ -26,8 +26,8 @@ public class DBControlModule {
     private static final String SELECT_ALL_TEACHERS = "select * from teachers";
     private static final String CREATE_REGISTRATION = "insert into registrations (coursecode,studentid) values (?,?)";
     private static final String SELECT_REGISTERED_COURSES = "select * from users where studentid =?";
-    private static final String NON_REGISTERED_COURSES_STUDENT = "SELECT * FROM courses WHERE code IN ("+
-    			"SELECT coursecode FROM registrations WHERE studentid <> ?"+
+    private static final String NON_REGISTERED_COURSES_STUDENT = "SELECT * FROM courses WHERE code NOT IN ("+
+    			"SELECT coursecode FROM registrations WHERE studentid = ?"+
     		")";
     private static final String REGISTERED_COURSES_STUDENT = "SELECT * FROM courses WHERE code IN ("+
 			"SELECT coursecode FROM registrations WHERE studentid = ?"+
@@ -167,7 +167,6 @@ public class DBControlModule {
 
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_TEACHERS);) {
-            preparedStatement.setString(1,"3");
         	System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
@@ -192,7 +191,7 @@ public class DBControlModule {
         try (Connection connection = getDbConnection();
 
             // Step 2:Create a statement using connection object
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_REGISTERED_COURSES);) {
+            PreparedStatement preparedStatement = connection.prepareStatement(REGISTERED_COURSES_STUDENT);) {
         	preparedStatement.setInt(1,studentid);
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
@@ -290,7 +289,8 @@ public class DBControlModule {
         try (Connection connection = getDbConnection();
 
             // Step 2:Create a statement using connection object
-            PreparedStatement preparedStatement = connection.prepareStatement(REGISTERED_COURSES_STUDENT);) {
+            PreparedStatement preparedStatement = connection.prepareStatement(STUDENTS_REGISTERED);) {
+        	System.out.println(coursecode);
         	preparedStatement.setString(1,coursecode);
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
@@ -307,6 +307,34 @@ public class DBControlModule {
             e.printStackTrace();
         }
         return students;
+    }
+	
+	public static String getFirstAssignedCourseCode(int teacherid) {
+
+        // using try-with-resources to avoid closing resources (boiler plate code)
+        List < Course > courses = new ArrayList < > ();
+        System.out.println("called getFirstAssignedCourseCode");
+        // Step 1: Establishing a Connection
+        String code="";
+        try (Connection connection = getDbConnection();
+
+            // Step 2:Create a statement using connection object
+            PreparedStatement preparedStatement = connection.prepareStatement(TEACHER_ASSIGNED_COURSES);) {
+        	preparedStatement.setInt(1,teacherid);
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                code = rs.getString("code");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("course code resulted: "+code);
+        return code;
     }
 
 }

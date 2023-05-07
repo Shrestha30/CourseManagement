@@ -61,7 +61,7 @@ public class CreateCourse extends HttpServlet {
 			//fetching the data and creating course
 			String code = request.getParameter("code");
 			String title = request.getParameter("title");
-			int teacherid = Integer.parseInt(request.getParameter("teacherid"));
+			int teacherid = -1;
 			float credit = Float.parseFloat(request.getParameter("credit"));
 			DBControlModule.insertCourse(new Course(code, title, teacherid,credit));
 			
