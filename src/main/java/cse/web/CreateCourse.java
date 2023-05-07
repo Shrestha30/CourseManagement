@@ -37,9 +37,11 @@ public class CreateCourse extends HttpServlet {
 		String type = (String)session.getAttribute("type");
 		if(type.compareTo("3")==0) {
 			List < Course > listCourses = DBControlModule.getAllCourses();
+			
 	        request.setAttribute("listCourses", listCourses);
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("createCourse.jsp");
 	        dispatcher.forward(request, response);
+	        
 		}else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
 	        dispatcher.forward(request, response);

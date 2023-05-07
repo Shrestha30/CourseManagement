@@ -49,11 +49,46 @@ public class Login extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("id",user.id);
 				session.setAttribute("type",user.type);
-				if(user.type.compareTo("3")==0) {
+				if(user.type.compareTo("3")==0) {//redirecting to create course page
 					List < Course > listCourses = DBControlModule.getAllCourses();
 			        request.setAttribute("listCourses", listCourses);
 			        RequestDispatcher dispatcher = request.getRequestDispatcher("createCourse.jsp");
 			        dispatcher.forward(request, response);
+				}else if(user.type.compareTo("1")==0) {//redirecting to student page
+					//fetching the data and creating course
+					String code = request.getParameter("code");
+					int studentid = (int)session.getAttribute("id");
+					DBControlModule.createCourseRegistration(code, studentid);
+					
+					//redirecting to the current page with updated data
+					
+					//sending all registered courses data to front-end registerCourse.jsp
+					List < Course > listRegisteredCourses = DBControlModule.getRegisteredCourses(studentid);
+			        request.setAttribute("listRegisteredCourses", listRegisteredCourses);
+			        
+			       //sending all non registered courses data to front-end registerCourse.jsp
+					List < Course > listNonRegisteredCourses = DBControlModule.getNonRegisteredCourses(studentid);
+			        request.setAttribute("listNonRegisteredCourses", listNonRegisteredCourses);
+			        
+			        RequestDispatcher dispatcher = request.getRequestDispatcher("registerCourse.jsp");
+			        dispatcher.forward(request, response);
+				}else if(user.type.compareTo("2")==0) {//redirecting to teacher page
+					//fetching the data and creating course
+					String code = request.getParameter("code");
+					int teacherid = (int)session.getAttribute("id");
+					
+					//redirecting to the current page with updated data
+					
+					//sending all assigned courses data to front-end registerCourse.jsp
+					List < Course > listAssignedCourses = DBControlModule.getTeacherAssignedCourses(teacherid);
+				    request.setAttribute("listAssignedCourses", listAssignedCourses);
+					      
+				    //sending all assigned courses data to front-end registerCourse.jsp
+					List < Student > listRegisteredStudents = DBControlModule.getRegisteredStudents(code);
+				    request.setAttribute("listRegisteredStudents", listRegisteredStudents);
+					      
+				    RequestDispatcher dispatcher = request.getRequestDispatcher("registeredStudents.jsp");
+					dispatcher.forward(request, response);
 				}
 			}
 			else out.println("Nope");

@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+Regis Course for student
 </body>
 </html>
