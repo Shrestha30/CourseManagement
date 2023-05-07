@@ -19,10 +19,10 @@ public class DBControlModule {
     
     //private static final String SELECT_USER_BY_ID = "select id,username,password,type from users where id =?";
     private static final String SELECT_USER_BY_USERNAME_PASSWORD = "select id,username,password,type from users where username =? and password = ?";
-    private static final String SELECT_COURSE_BY_CODE = "select code,title,teacherid from courses where code=?";
+    private static final String SELECT_COURSE_BY_CODE = "select * from courses where code=?";
     private static final String SELECT_ALL_COURSES = "select * from courses";
     private static final String UPDATE_COURSE_TEACHER = "update courses set teacherid=? where code=?";
-    private static final String CREATE_COURSE = "insert into courses (code,title,teacherid) values (?,?,?)";
+    private static final String CREATE_COURSE = "insert into courses (code,title,teacherid,credit) values (?,?,?,?)";
     private static final String SELECT_ALL_TEACHERS = "select * from teachers";
     private static final String CREATE_REGISTRATION = "insert into registrations (coursecode,studentid) values (?,?)";
     private static final String SELECT_REGISTERED_COURSES = "select * from users where studentid =?";
@@ -92,7 +92,8 @@ public class DBControlModule {
             while (rs.next()) {
                 String title = rs.getString("title");
                 int teacherid = rs.getInt("teacherid");
-                course = new Course(code, title, teacherid);
+                float credit = rs.getFloat("credit");
+                course = new Course(code, title, teacherid, credit);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -118,7 +119,8 @@ public class DBControlModule {
                 String code = rs.getString("code");
                 String title = rs.getString("title");
                 int teacherid = rs.getInt("teacherid");
-                courses.add(new Course(code, title, teacherid));
+                float credit = rs.getFloat("credit");
+                courses.add(new Course(code, title, teacherid,credit));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -146,6 +148,7 @@ public class DBControlModule {
             preparedStatement.setString(1, course.getCode());
             preparedStatement.setString(2, course.getTitle());
             preparedStatement.setInt(3, course.getTeacherid());
+            preparedStatement.setFloat(4, course.getCredit());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
             dbUpdated=true;
@@ -200,7 +203,8 @@ public class DBControlModule {
                 String code = rs.getString("code");
                 String title = rs.getString("title");
                 int teacherid = rs.getInt("teacherid");
-                courses.add(new Course(code, title, teacherid));
+                float credit = rs.getFloat("credit");
+                courses.add(new Course(code, title, teacherid, credit));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -227,7 +231,8 @@ public class DBControlModule {
                 String code = rs.getString("code");
                 String title = rs.getString("title");
                 int teacherid = rs.getInt("teacherid");
-                courses.add(new Course(code, title, teacherid));
+                float credit = rs.getFloat("credit");
+                courses.add(new Course(code, title, teacherid, credit));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -268,7 +273,8 @@ public class DBControlModule {
             while (rs.next()) {
                 String code = rs.getString("code");
                 String title = rs.getString("title");
-                courses.add(new Course(code, title, teacherid));
+                float credit = rs.getFloat("credit");
+                courses.add(new Course(code, title, teacherid, credit));
             }
         } catch (SQLException e) {
             e.printStackTrace();

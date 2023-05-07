@@ -60,7 +60,8 @@ public class CreateCourse extends HttpServlet {
 			String code = request.getParameter("code");
 			String title = request.getParameter("title");
 			int teacherid = Integer.parseInt(request.getParameter("teacherid"));
-			DBControlModule.insertCourse(new Course(code, title, teacherid));
+			float credit = Float.parseFloat(request.getParameter("credit"));
+			DBControlModule.insertCourse(new Course(code, title, teacherid,credit));
 			
 			//redirecting to the current page with updated data
 			List < Course > listCourses = DBControlModule.getAllCourses();

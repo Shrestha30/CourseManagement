@@ -19,31 +19,6 @@
 	<url-pattern>/CreateCourse</url-pattern>
   </servlet-mapping>
   
-  <servlet>
-	<servlet-name>AssignCourseTeacher</servlet-name>
-	<servlet-class>cse.web.AsssignCourseTeacher</servlet-class>
-  </servlet>
-  <servlet-mapping>
-	<servlet-name>AssignCourseTeacher</servlet-name>
-	<url-pattern>/AssignCourseTeacher</url-pattern>
-  </servlet-mapping>
   
-  <servlet>
-	<servlet-name>RegisterCourse</servlet-name>
-	<servlet-class>cse.web.RegisterCourse</servlet-class>
-  </servlet>
-  <servlet-mapping>
-	<servlet-name>RegisterCourse</servlet-name>
-	<url-pattern>/RegisterCourse</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-	<servlet-name>RegisteredStudents</servlet-name>
-	<servlet-class>cse.web.RegisteredStudents</servlet-class>
-  </servlet>
-  <servlet-mapping>
-	<servlet-name>RegisteredStudents</servlet-name>
-	<url-pattern>/RegisteredStudents</url-pattern>
-  </servlet-mapping>
   
 </web-app>

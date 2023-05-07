@@ -9,10 +9,11 @@ create table users (
 );
 
 
-create table courses (
+reate table courses (
  code varchar(120) NOT NULL,
  title varchar(220) NOT NULL,
  teacherid int,
+ credit float,
  PRIMARY KEY (code)
 );
 
@@ -35,3 +36,6 @@ create table students (
  reg varchar(120) NOT NULL,
  PRIMARY KEY (id)
 );
+
+INSERT INTO courses (code, title, teacherid, credit) VALUES ('CSCI101', 'Introduction to Computer Science', -1, 3.5);
+INSERT INTO courses (code, title, teacherid, credit) VALUES ('CSe157', 'Computer Science', -1, 3.5);

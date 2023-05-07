@@ -6,12 +6,14 @@ public class Course {
 	
 	protected int teacherid;//teacher id -1: not assigned
 	protected String code,title;
+	protected float credit;//course credit points
 	
-	public Course(String code, String title, int teacherid) {
+	public Course(String code, String title, int teacherid, float credit) {
 		super();
 		this.teacherid = teacherid;
 		this.code = code;
 		this.title = title;
+		this.credit = credit;
 	}
 	
 	public Course(String code, String title) {
@@ -39,4 +41,12 @@ public class Course {
 		this.title = title;
 	}
 
+	public float getCredit() {
+		return credit;
+	}
+
+	public void setCredit(float credit) {
+		this.credit = credit;
+	}
+	
 }
