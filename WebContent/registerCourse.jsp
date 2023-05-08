@@ -32,7 +32,10 @@
 	    		<!-- img from favpng -->
 	    	      <img src="https://img.favpng.com/23/7/4/computer-icons-educational-technology-learning-training-course-png-favpng-j5t2UTpdMx23LZhscuTVqAJGb.jpg" alt="" width="50" height="40" class="d-inline-block align-text-top">
 	    CourseManagement</a>
-	  
+	    
+	    <!-- button -->
+	    
+	       
 
 	</nav>
 	
@@ -43,19 +46,20 @@
 	<div style = "height:1px; background-color: rgba(0,0,0,0)">
 	</div>
 	
-	<div style = "height:30px; background-color: rgba(0,0,240,.1)">
+	<div style = "height:30px; background-color: rgba(0,0,0,0)">
 	</div>
 		
 <!-- to give bg-color -->
 
-	 <div class="h-30 d-inline-block" style="width: 100%; background-color: rgba(0,0,255,.1)">
+	 <div class="h-30 d-inline-block" style="width: 100%; background-color: rgba(0,0,0,0)">
 	 	 
 	 <div class="container">
  	 <div class="row">
-   	 <div class="col-md-6 text-center"style="border-right: 1px solid black;height: 300px;">
+   	 <div class="col-md-6 text-center"style=" padding: 25px 50px 25px 50px;height: 300px; overflow: auto; border-right: 1px solid black;height: 300px;">
+   	 
       <h4>Registered Course List </h4>
       <!--Registered course list -->
-	<table class="table table-striped table-success table-bordered">
+	<table class="table table-striped table-blue shadow table-bordered">
                         <thead>
                             <tr>
                                 <th>Course Code</th>
@@ -97,10 +101,10 @@
 
                     </table>
    		</div>
-    <div class="col-md-6 text-center">
+    <div class="col-md-6 text-center" style="padding: 25px 50px 25px 50px;height: 300px; overflow: auto; ">
       	<h4>Available Course to Register </h4>
       	<!--Non Registered course list -->
-	<table class="table table-striped table-success table-bordered">
+	<table class="table table-striped table-blue shadow table-bordered">
                         <thead>
                             <tr>
                                 <th>Course Code</th>
@@ -134,6 +138,9 @@
         									</c:otherwise>
    										 </c:choose>
 									</td>
+									<td>
+										<button class="btn btn-outline-secondary" onclick="setCourseCode('${user.code}')">SELECT</button>
+									</td>
                                     
                                 </tr>
                             </c:forEach>
@@ -149,10 +156,10 @@
 			 <div style = "height:1px; background-color: rgba(0,0,0,0)">
 			</div>
 			
-			<div style = "height:30px; background-color: rgba(0,0,240,.1)">
+			<div style = "height:30px; background-color: rgba(0,0,0,0)">
 			</div>
 			
-			<div class="h-30 d-inline-block" style=" width: 100%; background-color: rgba(0,0,255,.1)">
+			<div class="h-30 d-inline-block" style=" width: 100%; background-color: rgba(0,0,0,0)">
 			 	<div class="container">
 	 	 
 <!-- form  -->
@@ -171,8 +178,7 @@
     <div class="form-group row">
      <label for="lastName" class="col-sm-3 col-form-label">Course Code</label>
      <div class="col-sm-7">
-      <input type="text" class="form-control" name="code" id="code";
-       placeholder="Enter Course Code">
+      <input type="text" class="form-control" name="code" id="code"; placeholder="Enter Course Code">
      </div>
     </div>
 
@@ -188,10 +194,11 @@
    </form>
   </div>
   
-  <div style = "height:300px; background-color: rgba(0,0,240,.1)">
-			</div>
+  
 			
  </div>
+ <div style = "height:100px; background-color: rgba(0,0,0,0)">
+			</div>
 </div>
 </div>
 
@@ -201,6 +208,7 @@
   </body>
 </html>
 <script>
+  //validating form so that non od the fields remain empty
   function validateForm() {
     var userInput = document.getElementsByName("code")[0];
     
@@ -219,5 +227,9 @@
     }
     
     return true;
+  }
+  //setting the value of input field course code
+  function setCourseCode(courseCode) {
+	  document.getElementsByName("code")[0].value = courseCode;
   }
 </script>

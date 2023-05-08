@@ -46,6 +46,10 @@
 	      
 	    </ul>
 	    
+	       <form class="d-flex" method="get" action="/CourseManagement/Logout">
+	        <button class="btn btn-outline-secondary" type="submit">LogOut</button>
+	      </form>
+	    
 	  </div>
 	</nav>
 	
@@ -53,19 +57,21 @@
 	
 	<!-- AMEYA -->
 	
-	<div style = "height:1px; background-color: rgba(0,0,0,0)">
-	</div>
 	
-	<div style = "height:30px; background-color: rgba(0,0,240,.1)">
+	
+	<div style = "height:15px; background-color: rgba(0,0,0,0)">
 	</div>
 		
 <!-- to give bg-color -->
 
-	 <div class="h-35 d-inline-block" style=" width: 100%; background-color: rgba(0,0,255,.1)">
+	 <div class="h-35 d-inline-block" style=" width: 100%; background-color: rgba(0,0,0,0)">
 
-<h2>Course List:</h2>
+
+<!-- to do padding -->
+<div style ="padding: 25px 50px 10px 50px;height: 300px; overflow: auto;">
+<h2 >Course List:</h2>
 <!-- course list -->
-	<table class="table table-striped table-success table-bordered">
+	<table class="table table-striped shadow table-bordered">
                         <thead>
                             <tr>
                                 <th>Course Code</th>
@@ -99,6 +105,20 @@
         									</c:otherwise>
    										 </c:choose>
 									</td>
+									
+									<td>
+    									<c:choose>
+        									<c:when test="${user.teacherid == -1}">
+            									
+            									<button class="btn btn-outline-secondary" onclick="setCourseCode('${user.code}')">SELECT TEACHER</button>
+        									</c:when>
+        									<c:otherwise>
+            									
+            									
+            									<button class="btn btn-outline-secondary" onclick="setCourseCode('${user.code}')"">SELECT TO CHANGE TEACHER</button>
+        									</c:otherwise>
+   										 </c:choose>
+									</td>
                                     
                                 </tr>
                             </c:forEach>
@@ -106,11 +126,20 @@
                         </tbody>
 
                     </table>
+                    
+                    
+    </div>
 	 	 
-	 	 
+	<!-- to give some space --> 	
+	<div style = "height:5px; background-color: rgba(0,0,0,0)">
+	</div> 
+	
+	
 <!-- Teacher list -->
-<h2>Teacher List:</h2>
-	<table class="table table-striped table-success table-bordered" >
+<div style ="padding: 25px 50px 25px 50px;height: 300px; overflow: auto;">
+
+<h2 >Teacher List:</h2>
+	<table class="table table-striped  shadow table-bordered" >
                         <thead>
                             <tr>
                                 <th>Teacher ID</th>
@@ -131,6 +160,11 @@
                                         <c:out value="${teacher.name}" />
                                     </td>
                                     
+                                    <td>
+                                   <button class="btn btn-outline-secondary" onclick="setTeacherId(${teacher.id})">SELECT</button>
+
+                                    </td>
+                                    
                                     
                                 </tr>
                             </c:forEach>
@@ -138,6 +172,8 @@
                         </tbody>
 
                     </table>
+                    
+    </div>
 	 	 
 <!-- form  -->
 
@@ -150,13 +186,12 @@
 <!-- second portion -->
 			 	 
 			 </div>
-			 <div style = "height:1px; background-color: rgba(0,0,0,0)">
-			</div>
+			 
 			
-			<div style = "height:30px; background-color: rgba(0,0,240,.1)">
+			<div style = "height:31px; background-color: rgba(0,0,0,0)">
 			</div>
 			  
-			 <div class="h-35 d-inline-block" style="height: 400px; width: 100%; background-color: rgba(0,0,255,.1)">
+			 <div class="h-35 d-inline-block" style="height: 400px; width: 100%; background-color: rgba(0,0,0,0)">
 			 	<div class="container">
 			 	
 			 	<!-- Showing Alert -->
@@ -200,6 +235,7 @@
 </html>
 
 <script>
+  //validating form so that non od the fields remain empty
   function validateForm() {
     var userInput = document.getElementsByName("code")[0];
     var passInput = document.getElementsByName("teacherid")[0];
@@ -230,5 +266,13 @@
       return false;
     }
     return true;
+  }
+  //setting the input field of teacher's id on select
+  function setTeacherId(teacherId) {
+	 document.getElementsByName("teacherid")[0].value = teacherId;
+  }
+  //setting the input field of course code on select
+  function setCourseCode(courseCode) {
+	 document.getElementsByName("code")[0].value = courseCode;
   }
 </script>

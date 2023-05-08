@@ -46,6 +46,10 @@
 	      
 	    </ul>
 	    
+	    <form class="d-flex" method="get" action="/CourseManagement/Logout">
+	        <button class="btn btn-outline-secondary" type="submit">LogOut</button>
+	      </form>
+	    
 	  </div>
 	</nav>
 	
@@ -56,16 +60,16 @@
 	<div style = "height:1px; background-color: rgba(0,0,0,0)">
 	</div>
 	
-	<div style = "height:30px; background-color: rgba(0,0,240,.1)">
+	<div style = "height:30px; background-color: rgba(0,0,0,0)">
 	</div>
 		
 <!-- to give bg-color -->
 
-	 <div class="h-30 d-inline-block" style=" width: 100%; background-color: rgba(0,0,255,.1)">
+	 <div class="h-30 d-inline-block" style=" width: 100%; background-color: rgba(0,0,0,0)">
 	 	 
-	 	 
+	<div style ="padding: 25px 50px 25px 50px;height: 300px; overflow: auto;">
 <!-- course list -->
-	<table class="table table-striped table-blue table-bordered">
+	<table class="table table-striped table-blue table-bordered  shadow ">
                         <thead>
                             <tr>
                                 <th>Course Code</th>
@@ -111,10 +115,10 @@
 			 <div style = "height:1px; background-color: rgba(0,0,0,0)">
 			</div>
 			
-			<div style = "height:30px; background-color: rgba(0,0,240,.1)">
+			<div style = "height:30px; background-color: rgba(0,0,0,0)">
 			</div>
 			
-			<div class="h-30 d-inline-block" style=" width: 100%; background-color: rgba(0,0,255,.1)">
+			<div class="h-30 d-inline-block" style=" width: 100%; background-color: rgba(0,0,0,0)">
 			 	<div class="container">
 			 	
 			<!-- Showing Alert -->
@@ -176,6 +180,7 @@
 
 <!-- Scripts to show alerts when input fields are empty -->
 <script>
+  //validating form so that non od the fields remain empty
   function validateForm() {
     var codeInput = document.getElementsByName("code")[0];
     var passInput = document.getElementsByName("title")[0];
